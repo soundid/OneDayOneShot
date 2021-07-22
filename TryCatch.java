@@ -1,42 +1,46 @@
+
+
 public class TryCatch {
 
 
     public static void main(String[] args) {
 
-
-        String num1 = "123";
-        String num2 = "888";
+        String input = "in(f(le)ar)n)";
+        String input2 = "a)b(c)d";
+        String input3 = "(a(b(c)d)";
+        String input4 = "))((";
+        String input5 = ")()(";
         TryCatch a = new TryCatch();
-        System.out.println(a.solve(num1, num2));
+        System.out.println(a.check(input5));
 
 
     }
 
 
+    public String check(String input5) {
 
-    public String solve(String num1, String num2) {
-        int carry = 0;
+        StringBuilder a = new StringBuilder();
+        StringBuilder b = new StringBuilder();
+        int count = 0;
 
-        StringBuilder sb = new StringBuilder();
-        int numLengthA = num1.length() - 1; //이렇게
-        int numLengthB = num2.length() - 1;
-
-        while (numLengthA >= 0 || numLengthB >= 0) {
-            int numA = 0;
-            int numB = 0;
-            numA = num1.charAt(numLengthA) - '0';
-            numB = num2.charAt(numLengthB) - '0';
-//        carry = (numA + numB)/10;
-            int sum = numA + numB + carry;
-            carry = sum / 10;
-            sb.append(sum % 10);
-            numLengthA--;
-            numLengthB--;
+        for (char c : input5.toCharArray()) {
+            if (c == '(') {
+                count++;
+            } else if (c == ')') {
+                if(count == 0) continue; //char 삭제를 continue로 건너 뛰는 방법으로 구현
+                count--;
+            }
+                a.append(c);
+        }
+        for(int i=a.length()-1; i>=0; i-- ){
+            if (a.charAt(i)=='(' && count-->0) continue;
+            //다른 경우수 생각안하고 일단은 문제에서 말하는 그대로 구현해보려 할 것
+            //앞에서부터 저장시 )(로 나오고
+            //뒤에서부터 저장시 ()로 나온다.
+            b.append(a.charAt(i));
 
         }
-        if (carry != 0) sb.append(carry); //마지막 끝에 carry에 들어간 숫자가
-        return sb.reverse().toString();
+        return b.reverse().toString();
     }
-
 
 }
