@@ -1,32 +1,31 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-
 public class GreedyTest {
 
     public static void main(String[] args) {
 
-        int num = 7; //fearNumber 배열길이와 동일한 num
-        int[] fearNumber = {2, 3, 1, 2, 2};
-        int[] fearNumber2 = {5, 1, 1, 1, 1, 1, 1};
 
-        GreedyTest a = new GreedyTest();
-        System.out.println(a.check(num, fearNumber2));
+        String input[] = {"test", "teacher"};
+        System.out.println(new GreedyTest().solve(input));
+
     }
 
+    public String solve(String[] input) {
 
-    public int check(int num, int[] fearNumber) {
-        int number = num;
-        int x=num;
-        int count=0;
-        for(int i=0; i<= number-1; i++){
-            if(x>0){
-                count++;
-                x -=fearNumber[i];
+        if (input.length == 0) return "";
+
+        String firstStr = input[0];
+
+        for (int i = 1; i < input.length; i++) {
+
+            while (input[i].indexOf(firstStr) != 0) {
+            //공통된 te라는 동일한 문구 찾게 위해 firstStr.length()-1를 해줌으로써
+            // te의 t의 위치인 0이 나오도록 while문 조건으로 걸어준다.
+            //그리고 0이 나올 때에 firstStr에 담기는 te를 return 하게 한다.
+
+                firstStr = firstStr.substring(0, firstStr.length()-1);
 
             }
 
         }
-        return count;
+        return firstStr;
     }
 }
