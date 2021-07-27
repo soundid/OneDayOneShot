@@ -1,31 +1,47 @@
 public class GreedyTest {
 
+    int start, finish;
+
     public static void main(String[] args) {
 
+//        String input = "banana";
+        String input = "bbbb";//끝에 연속된 문자가 같다면 끝에 b는 나오지 않는 경우 처리
 
-        String input[] = {"test", "teacher"};
-        System.out.println(new GreedyTest().solve(input));
+        System.out.println(new GreedyTest().resolve(input));
 
     }
 
-    public String solve(String[] input) {
+    public String resolve(String input) {
 
-        if (input.length == 0) return "";
+        int lens = input.length();
+        for (int i = 0; i < lens; i++) {
 
-        String firstStr = input[0];
+            if (input.length() % 2 == 0) {
 
-        for (int i = 1; i < input.length; i++) {
+                findSubString(input, i, i + 1); //odd
 
-            while (input[i].indexOf(firstStr) != 0) {
-            //공통된 te라는 동일한 문구 찾게 위해 firstStr.length()-1를 해줌으로써
-            // te의 t의 위치인 0이 나오도록 while문 조건으로 걸어준다.
-            //그리고 0이 나올 때에 firstStr에 담기는 te를 return 하게 한다.
+            } else {
 
-                firstStr = firstStr.substring(0, firstStr.length()-1);
+                findSubString(input, i, i); //even
 
             }
 
         }
-        return firstStr;
+        return input.substring(start, finish + start);
+
+    }
+
+    public void findSubString(String input, int left, int right) {
+        while (0 <= left && right < input.length() && input.charAt(left) == input.charAt(right)) {
+
+            left--; //넘아갈때에는 --로 한번 연산되는 것 염두
+            right++;
+            System.out.println(left + " " + right);
+
+        }
+        if (finish < right - left - 1) {
+            start = left + 1;
+            finish = right - left - 1;
+        }
     }
 }
