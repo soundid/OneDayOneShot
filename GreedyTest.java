@@ -1,47 +1,32 @@
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class GreedyTest {
 
-    int start, finish;
 
     public static void main(String[] args) {
 
-//        String input = "banana";
-        String input = "bbbb";//끝에 연속된 문자가 같다면 끝에 b는 나오지 않는 경우 처리
+        String input = "02894";
 
-        System.out.println(new GreedyTest().resolve(input));
+        long result = input.charAt(0)-'0';
+        //result를 잡고 들어가는 이유 하기 조건문에서 num 또는 result가 0일경우에 더해주라는 조건이 없다면 result는 무조건 0이 된다.
+        //제일 앞자리가 0일 경우엔 한번은 0보다 큰 다른 숫자가 한번은 더해진다.
+        //제일 앞자리가 0이 아니라면 result가 0이 아니라면 숫자들이 곱해진다.
 
-    }
 
-    public String resolve(String input) {
+        for (int i = 0; i < input.length(); i++) {
 
-        int lens = input.length();
-        for (int i = 0; i < lens; i++) {
-
-            if (input.length() % 2 == 0) {
-
-                findSubString(input, i, i + 1); //odd
-
+            int num = input.charAt(i)-'0';
+            if (result<= 1 || num<=1) {
+                result += input.charAt(i) - '0';
             } else {
-
-                findSubString(input, i, i); //even
-
+                result *= input.charAt(i) - '0';
             }
 
         }
-        return input.substring(start, finish + start);
+
+        System.out.println(result);
 
     }
 
-    public void findSubString(String input, int left, int right) {
-        while (0 <= left && right < input.length() && input.charAt(left) == input.charAt(right)) {
-
-            left--; //넘아갈때에는 --로 한번 연산되는 것 염두
-            right++;
-            System.out.println(left + " " + right);
-
-        }
-        if (finish < right - left - 1) {
-            start = left + 1;
-            finish = right - left - 1;
-        }
-    }
 }
