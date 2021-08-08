@@ -6,27 +6,58 @@ public class GreedyTest {
 
     public static void main(String[] args) {
 
-        String input = "02894";
+        int[] stock = {8, 2, 6, 5, 1, 7, 5};
 
-        long result = input.charAt(0)-'0';
-        //result를 잡고 들어가는 이유 하기 조건문에서 num 또는 result가 0일경우에 더해주라는 조건이 없다면 result는 무조건 0이 된다.
-        //제일 앞자리가 0일 경우엔 한번은 0보다 큰 다른 숫자가 한번은 더해진다.
-        //제일 앞자리가 0이 아니라면 result가 0이 아니라면 숫자들이 곱해진다.
+//        Before
+//        int num1=0;
+//        //주식을 같은날 같은 가격에 팔 게 될 경우는 0원 이익이기에
+//        //배열의 index 1부터 계산해서 max를 계산한다.
+//        for(int i=0; i<stock.length; i++){
+//            for(int j=1; j<stock.length; j++){
+//                if(num1 <stock[j]-stock[i]){
+//                    num1 = stock[j]-stock[i];
+//                    System.out.println(stock[j] + " " + stock[i]);
+//                }
+//            }
+//        }
+//        System.out.println(num1);
 
 
-        for (int i = 0; i < input.length(); i++) {
+//        After
+        int max = 0;
+        int min = stock[0];
+        //주식을 같은날 같은 가격에 팔 게 될 경우는 0원 이익이기에
+        //배열의 index 1부터 계산해서 max를 계산한다.
+        for (int i = 0; i < stock.length; i++) {
+            if (stock[i] < min) {
+                min = stock[i];
 
-            int num = input.charAt(i)-'0';
-            if (result<= 1 || num<=1) {
-                result += input.charAt(i) - '0';
-            } else {
-                result *= input.charAt(i) - '0';
+            }else {
+                max=Math.max(max, stock[i]-min);
             }
-
         }
-
-        System.out.println(result);
-
+        System.out.println(max);
     }
 
+
 }
+
+//    public static void main(String[] args) {
+//
+//        int[]stock = {8,2,6,5,1,7,5};
+//
+//        int num1=0;
+//        int num2=0;
+//        //주식을 같은날 같은 가격에 팔 게 될 경우는 0원 이익이기에
+//        //배열의 index 1부터 계산해서 max를 계산한다.
+//        for(int i=0; i<stock.length; i++){
+//            for(int j=1; j<stock.length; j++){
+//                if(num1 <stock[j]-stock[i]){
+//                    num1 = stock[j]-stock[i];
+//                    System.out.println(stock[j] + " " + stock[i]);
+//                }
+//            }
+//        }
+//        System.out.println(num1);
+//
+//    }
